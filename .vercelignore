@@ -1,3 +1,11 @@
+# Development & Testing
+tests/
+scripts/
+docs/
+.github/
+.devcontainer/
+bin/
+
 # Generated files
 vendor/
 node_modules/
