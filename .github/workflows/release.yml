@@ -1,5 +1,8 @@
 name: Automated Releases
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
 
@@ -8,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: conventional Changelog Action
         id: changelog
@@ -19,11 +22,11 @@ jobs:
           output-file: 'false'
 
       - name: create release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v3
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGELOG_RELEASE }}
         with:
           tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.clean_changelog }}

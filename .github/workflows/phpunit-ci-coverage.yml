@@ -1,5 +1,8 @@
 name: PHPUnit CI
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
   pull_request:
@@ -14,7 +17,7 @@ jobs:
   build-test:
     runs-on: [self-hosted, manupa-hnx]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Configure Git safe directory
         run: git config --global --add safe.directory '*'
       - uses: php-actions/composer@v6
